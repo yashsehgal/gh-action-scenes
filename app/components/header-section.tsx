@@ -17,7 +17,7 @@ const HeaderSection: React.FunctionComponent<React.HTMLAttributes<HTMLDivElement
 
 const CurrentPageContent: React.FunctionComponent = () => {
   return (
-    <p className="CurrentPage-content font-mono text-base text-slate-900">{`at page, /${window.location.pathname === "/" ? "" : window.location.pathname}`}</p>
+    <p className="CurrentPage-content font-mono text-base text-slate-900">{`at page, /${(window?.location?.pathname) === "/" ? "" : window?.location?.pathname}`}</p>
   )
 }
 

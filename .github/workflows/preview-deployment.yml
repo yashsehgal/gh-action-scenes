@@ -1,0 +1,46 @@
+name: Preview Deployment
+on:
+  pull_request_target:
+
+# Required: Pages permissions for deploying
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout qr-generator repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_requests.head.sha }}
+      - name: Use Node.js (v16)
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Installing dependencies
+        run: npm ci
+      - name: Setup Build for NextJS
+        run: npm run build
+      - name: Static files export for GitHub Pages
+        run: npm run export
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          name: Static Files
+          path: ./out
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: preview-deployments
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy artifact
+        id: Deployment
+        uses: actions/deploy-pages@v1
+        with:
+          preview: ${{ github.event_name == 'pull_request_target' }}

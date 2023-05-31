@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="Application-container">
-        <ThemeProvider theme={theme} themeManager={setTheme}>
+        <ThemeProvider theme={theme} thememanager={setTheme}>
           {children}
         </ThemeProvider>
       </body>

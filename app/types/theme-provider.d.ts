@@ -5,5 +5,5 @@ export type ThemesMap =
 
 export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement> {
   theme: ThemesMap;
-  themeManager: (theme: ThemesMap) => void;
+  thememanager: (theme: ThemesMap) => void;
 };
